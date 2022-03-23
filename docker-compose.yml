@@ -1,5 +1,9 @@
 version: '3.3'
 services:
+    lb: 
+     build : ./lb
+     ports : 
+        - "8000:80"
     app1: 
       build: ./service1
       ports:

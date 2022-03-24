@@ -10,7 +10,7 @@ app.use(cors());
 app.use(bodyParser.json());
 app.get("/server2", async (req, res) => {
   try {
-    let re = await axios.post("http://localhost:3002/service2", { a: 2, b: 3 });
+    let re = await axios.post("service_two:8009/service2", { a: 2, b: 3 });
     if(re){
       console.log('Succesfully posted')
       res.send(re)

@@ -5,15 +5,26 @@ services:
     #   ports : 
     #     - "7000:80"
     app1: 
+      container_name: service_one
       build: ./service1
       ports:
         - "3001:8008"
+      networks: 
+            - mynet
 
     app2 :
+      container_name: service_two
       build : ./service2
       ports :
         - "3002:8009"
+      networks: 
+            - mynet
+
     redis :
       image: redis
+
+networks:
+    mynet:
+      driver : bridge
      
       

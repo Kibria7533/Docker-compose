@@ -1,41 +1,28 @@
-const express = require('express')
+const express = require("express");
 var http = require("http");
-const cors=require('cors')
+const cors = require("cors");
+const axios = require("axios");
 var querystring = require("querystring");
-var bodyParser = require('body-parser')
-const app = express()
-const port = 8008
+var bodyParser = require("body-parser");
+const app = express();
+const port = 8008;
 app.use(cors());
-app.use(bodyParser.json())
-app.get('/', (req, res) => {
-  var data = querystring.stringify({
-    username: "myname",
-    password: " pass"
-});
-
-var options = {
-    host: 'http://localhost',
-    port: 8009,
-    path: '/service2',
-    method: 'POST',
-    headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-        'Content-Length': Buffer.byteLength(data)
+app.use(bodyParser.json());
+app.get("/server2", async (req, res) => {
+  try {
+    let re = await axios.post("http://localhost:3002/service2", { a: 2, b: 3 });
+    if(re){
+      console.log('Succesfully posted')
+      res.send(re)
     }
-};
-
-var req = http.request(options, function(res)
-{
-    res.setEncoding('utf8');
-    res.on('data', function (chunk) {
-        console.log("body: " + chunk);
-    });
+  } catch (err) {
+    console.log(err);
+  }
 });
-req.write(data);
-req.end();
-  // res.send('Hello World From Service 1!')
+app.get('/',(req,res)=>{
+  res.send('Hell From Service 1 ')
 })
 
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
-})
+  console.log(`Example app listening on port ${port}`);
+});

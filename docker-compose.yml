@@ -1,16 +1,19 @@
 version: '3.3'
 services:
-    lb : 
-      build : ./lb
-      ports : 
-        - "7000:80"
+    # lb : 
+    #   build : ./lb
+    #   ports : 
+    #     - "7000:80"
     app1: 
       build: ./service1
       ports:
-        - "5001:8008"
+        - "3001:8008"
 
     app2 :
       build : ./service2
       ports :
-        - "5002:8009"
-
+        - "3002:8009"
+    redis :
+      image: redis
+     
+      

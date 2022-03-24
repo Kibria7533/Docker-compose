@@ -12,14 +12,16 @@ app.post('/service2', (req, res) => {
  
   let sum=req.body.a+req.body.b;
   (async () => {
-    const client = createClient();
+    const client = createClient({
+      url: 'redis://docker-compose-redis-1:6379'
+    });
   
     client.on('error', (err) => console.log('Redis Client Error', err));
   
     await client.connect();
-  
     await client.set('result', sum);
     const value = await client.get('result');
+    console.log("Reached here 1");
     res.json({msg:'Wellcome you all',result:value});
   })();
 })
